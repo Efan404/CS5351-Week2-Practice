@@ -83,4 +83,33 @@ int main() {
     do {
         printBoard();
         currentPlayer = (currentPlayer % 2) ? 1 : 2;
-        mark = (currentPl
+        mark = (currentPlayer == 1) ? 'X' : 'O';
+        
+        cout << "玩家 " << currentPlayer << " (" << mark << "), 请输入数字(1-9)下棋: ";
+        cin >> choice;
+        
+        int row = (choice - 1) / SIZE;
+        int col = (choice - 1) % SIZE;
+        
+        if (choice >= 1 && choice <= 9 && board[row][col] >= '1' && board[row][col] <= '9') {
+            board[row][col] = mark;
+            currentPlayer++;
+        } else {
+            cout << "无效的移动，请重新选择！\n";
+            continue;
+        }
+        
+        if (checkWin()) {
+            printBoard();
+            cout << "\n==> 玩家 " << ((mark == 'X') ? 1 : 2) << " (" << mark << ") 获胜！\n";
+            gameOver = true;
+        } else if (checkDraw()) {
+            printBoard();
+            cout << "\n==> 游戏平局！\n";
+            gameOver = true;
+        }
+        
+    } while (!gameOver);
+    
+    return 0;
+}
