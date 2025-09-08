@@ -34,12 +34,14 @@ bool checkIfUsed(int i, int j, char **game)
 int main()
 {
      int i, j;
-     char game[3][3] = {}; // Tic-tac-toe
+     char game[3][3] = {{' ', ' ', ' '}, {' ', ' ', ' '}, {' ', ' ', ' '}};
+     ; // Tic-tac-toe
      char player1 = 'X';
      char player2 = 'O';
      bool turn = true; // false for player 1's turn, true for player 2's turn. Player 1 first.
      cout << "X = Player 1" << endl;
      cout << "O = Player 2" << endl;
+     bool isWin = false;
      int n = 0;
      for (; n < 9; n++)
      {
@@ -68,11 +70,12 @@ int main()
                game[i][j] = 'O';
           if (isWin(game))
           {
+               isWin = true;
                cout << "Win!" << endl;
                break; // need to terminate the problem
           }
      }
-     if (n == 9) // all cells with i=0 to 2 have been inputted above but no winner yet
+     if (n == 9 && !isWin) // all cells with i=0 to 2 have been inputted above but no winner yet
           cout << "Tie!" << endl;
 
      // show the game to console
